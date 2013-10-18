@@ -29,7 +29,6 @@ public:
 
         updateType = RepaintCanvas;
         updateInterval = 100;
-	circularBufferSize = 100;
 	sensor_callback = NULL;
     }
 
@@ -57,7 +56,6 @@ public:
 
     UpdateType updateType;
     int updateInterval;
-    int circularBufferSize;
 
     double (*sensor_callback)(void);
 };

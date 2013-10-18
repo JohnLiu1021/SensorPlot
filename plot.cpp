@@ -20,7 +20,7 @@ Plot::Plot( QWidget *parent ):
 
     setCanvasBackground( Qt::white );
 
-    alignScales();
+    //alignScales();
 
     // Insert grid
     d_grid = new QwtPlotGrid();
@@ -36,7 +36,7 @@ Plot::Plot( QWidget *parent ):
     setAxisScale( QwtPlot::xBottom, -d_interval, 0.0 );
 
     setAxisTitle( QwtPlot::yLeft, "Values" );
-    setAxisScale( QwtPlot::yLeft, -1.0, 1.0 );
+    //setAxisScale( QwtPlot::yLeft, -1.0, 1.0 );
 
     d_clock.start();
 
@@ -98,8 +98,9 @@ void Plot::setSettings( const Settings &s )
 
     circular_buffer.clear();
     x_sample.clear();
-    circular_buffer.resize(s.circularBufferSize);
-    x_sample.resize(s.circularBufferSize);
+    int circularBufferSize = 10 / ((double)s.updateInterval/1000) ;
+    circular_buffer.resize(circularBufferSize);
+    x_sample.resize(circularBufferSize);
     
     for (QVector<double>::iterator it=circular_buffer.begin();
 	 it != circular_buffer.end(); it++)
@@ -111,7 +112,6 @@ void Plot::setSettings( const Settings &s )
 	 it != x_sample.end(); it++) {
 	 base -= increment;
 	 *it = base;
-	 //qDebug() << "it=" << *it;
     }
 
     d_curve->setSamples(x_sample, circular_buffer);
@@ -122,9 +122,9 @@ void Plot::setSettings( const Settings &s )
 
 void Plot::timerEvent( QTimerEvent * )
 {
-    qDebug() << "Timeout!";
     circular_buffer.pop_back();
-    circular_buffer.push_front(0.9);
+    double data = sensor_callback();
+    circular_buffer.push_front(data);
     d_curve->setSamples(x_sample, circular_buffer);
     replot();
     /*

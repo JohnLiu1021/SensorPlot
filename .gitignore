@@ -1,0 +1,6 @@
+CHR*
+Makefile
+SensorPlot
+SerialPort_cpp.*
+moc*
+*.o

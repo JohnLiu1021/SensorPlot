@@ -8,15 +8,22 @@
 ################################################################
 
 CONFIG += qwt
-LIBS += -lqwt
+LIBS += -lqwt -lpthread
 
 TARGET       = SensorPlot
 
 HEADERS = \
     settings.h \
     plot.h \
+    CHR_SensorData.h \
+    CHR_PacketType.h \
+    SerialPort_cpp.h \
+    CHR_6dm.h
 
 SOURCES = \
     plot.cpp \
-    main.cpp
+    CHR_SensorData.cpp \
+    SerialPort_cpp.cpp \
+    CHR_6dm.cpp \
+    main.cpp 
 
