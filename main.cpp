@@ -20,14 +20,14 @@ int main( int argc, char **argv )
 		fprintf(stderr, "Error Open");
 		return -1;
 	}
-	sensor.enableChannel(ay);
+	sensor.enableChannel(Accelerometer);
 	
 	if (device.setActiveChannels(&sensor) != CHR_OK) {
 		fprintf(stderr, "Error set active channel");
 		return -1;
 	}
 
-	if (device.gotoMeasurementMode(&sensor, 100) != CHR_OK) {
+	if (device.gotoMeasurementMode(&sensor, 300) != CHR_OK) {
 		fprintf(stderr, "Error goto measurement mode");
 		return -1;
 	}
