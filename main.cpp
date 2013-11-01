@@ -42,6 +42,11 @@ int main( int argc, char **argv )
 	plot1->resize( 600, 400 );
 
 	Settings setting1;
+	setting1.display.title = "Sensor 1";
+	setting1.display.xTitle = "s";
+	setting1.display.yTitle = "g";
+	setting1.display.xInterval = 5;
+
 	setting1.sensor_callback = sensor_callback;
 	setting1.updateInterval = 20;
 	plot1->setSettings(setting1);

@@ -16,7 +16,7 @@ Plot::Plot( QWidget *parent ):
     d_timerId( -1 )
 {
     // Assign a title
-    setTitle( "Sensor Plot" );
+    // setTitle( "Sensor Plot" );
 
     setCanvasBackground( Qt::white );
 
@@ -32,10 +32,10 @@ Plot::Plot( QWidget *parent ):
     d_curve->attach( this );
 
     // Axis
-    setAxisTitle( QwtPlot::xBottom, "Seconds" );
-    setAxisScale( QwtPlot::xBottom, -d_interval, 0.0 );
+    //setAxisTitle( QwtPlot::xBottom, "Seconds" );
+    //setAxisScale( QwtPlot::xBottom, -d_interval, 0.0 );
 
-    setAxisTitle( QwtPlot::yLeft, "Values" );
+    //setAxisTitle( QwtPlot::yLeft, "Values" );
     //setAxisScale( QwtPlot::yLeft, -1.0, 1.0 );
 
     d_clock.start();
@@ -75,6 +75,13 @@ void Plot::setSettings( const Settings &s )
         killTimer( d_timerId );
 
     d_timerId = startTimer( s.updateInterval );
+
+    setTitle( s.display.title );
+    setAxisTitle( QwtPlot::xBottom, s.display.xTitle );
+    setAxisTitle( QwtPlot::yLeft, s.display.yTitle );
+    setAxisScale( QwtPlot::xBottom, -s.display.xInterval, 0.0 );
+    if (s.display.yInterval != 0.0)
+        setAxisScale( QwtPlot::yLeft, -(s.display.yInterval/2), (s.display.yInterval/2) );
 
     d_grid->setPen( s.grid.pen );
     d_grid->setVisible( s.grid.pen.style() != Qt::NoPen );

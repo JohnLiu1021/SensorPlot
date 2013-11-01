@@ -3,6 +3,7 @@
 
 #include <qpen.h>
 #include <qbrush.h>
+#include <qstring.h>
 
 class Settings
 {
@@ -30,6 +31,12 @@ public:
         updateType = RepaintCanvas;
         updateInterval = 100;
 	sensor_callback = NULL;
+
+	display.title = "Sensor Plot";
+	display.xTitle = "Seconds";
+	display.yTitle = "Values";
+	display.xInterval = 10.0;
+	display.yInterval = 0.0;
     }
 
     struct gridSettings
@@ -53,6 +60,15 @@ public:
         bool paintOnScreen;
         bool immediatePaint;
     } canvas;
+
+    struct displaySettings
+    {
+	    QString title;
+	    QString xTitle;
+	    QString yTitle;
+	    double xInterval;
+	    double yInterval;
+    } display;
 
     UpdateType updateType;
     int updateInterval;
